@@ -1,13 +1,15 @@
 package Logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class MapGenerator {
 	private ArrayList<Continent> continents;
 	private ArrayList<Region> regions;
 	
 	public MapGenerator() {
-		createContinents();		
+		createContinents();
 		createRegions();
 		
 		// Combine all regions into arrayList
@@ -32,13 +34,13 @@ public class MapGenerator {
 		// Europe Regions
 		Continent europe = continents.get(0);
 
-		Region ukraine = new Region(europe, "Ukraine");
-		Region scandinavia = new Region(europe, "Scandinavia");
-		Region northEurope = new Region(europe, "N. Europe");
-		Region southEurope = new Region(europe, "S. Europe");
-		Region iceland = new Region(europe, "Iceland");
-		Region greatBritain = new Region(europe, "Great Britain");
-		Region westEurope = new Region(europe, "W. Europe");
+		Region ukraine = new Region(europe, "Ukraine", 426, 110, 430, 140);
+		Region scandinavia = new Region(europe, "Scandinavia", 355, 83, 360, 100);
+		Region northEurope = new Region(europe, "N. Europe", 355, 170, 355, 173);
+		Region southEurope = new Region(europe, "S. Europe", 353, 207, 370, 210);
+		Region iceland = new Region(europe, "Iceland", 300, 88, 310, 95);
+		Region greatBritain = new Region(europe, "G. Britain", 257, 190, 305, 160);
+		Region westEurope = new Region(europe, "W. Europe", 290, 252, 305, 225);
 		
 		// Europe Connections
 		ukraine.addBiConnection(scandinavia);
@@ -55,15 +57,15 @@ public class MapGenerator {
 
 		// North America
 		Continent northAmerica = continents.get(1);
-		Region greenland = new Region(northAmerica, "Ukraine");
-		Region nwTerritory = new Region(northAmerica, "nwTerritory");
-		Region ontario = new Region(northAmerica, "Ontario");
-		Region quebec = new Region(northAmerica, "Quebec");
-		Region easternUS = new Region(northAmerica, "Eastern US");
-		Region alberta = new Region(northAmerica, "Alberta");
-		Region westernUS = new Region(northAmerica, "Western US");
-		Region alaska = new Region(northAmerica, "Alaska");
-		Region centralAmerica = new Region(northAmerica, "Cent. America");
+		Region greenland = new Region(northAmerica, "Greenland", 245, 40, 255, 55);
+		Region nwTerritory = new Region(northAmerica, "nwTerritory", 90, 90, 100, 60);
+		Region ontario = new Region(northAmerica, "Ontario", 146, 140, 150, 110);
+		Region quebec = new Region(northAmerica, "Quebec", 197, 139, 205, 110);
+		Region easternUS = new Region(northAmerica, "East US", 150, 200, 160, 170);
+		Region alberta = new Region(northAmerica, "Alberta", 96, 136, 100, 100);
+		Region westernUS = new Region(northAmerica, "West US", 95, 194, 105, 160);
+		Region alaska = new Region(northAmerica, "Alaska", 35, 93, 45, 63);
+		Region centralAmerica = new Region(northAmerica, "Cent. America", 101, 248, 110, 215);
 		
 		// Europe North America Connections
 		greenland.addBiConnection(iceland);
@@ -88,10 +90,10 @@ public class MapGenerator {
 		
 		// North America
 		Continent southAmerica = continents.get(2);
-		Region venezuela = new Region(northAmerica, "Venezuela");
-		Region peru = new Region(northAmerica, "Peru");
-		Region brazil = new Region(northAmerica, "Brazil");
-		Region argentina = new Region(northAmerica, "Argentina");
+		Region venezuela = new Region(southAmerica, "Venezuela", 161, 280, 155, 280);
+		Region peru = new Region(southAmerica, "Peru", 175, 353, 150, 320);
+		Region brazil = new Region(southAmerica, "Brazil", 195, 305, 220, 315);
+		Region argentina = new Region(southAmerica, "Argentina", 177, 390, 183, 400);
 		
 		// North | South America Connections
 		venezuela.addBiConnection(centralAmerica);
@@ -105,12 +107,12 @@ public class MapGenerator {
 		
 		// Africa
 		Continent africa = continents.get(3);
-		Region northAfrica = new Region(africa, "N. Africa");
-		Region egypt = new Region(africa, "Egypt");
-		Region eastAfrica = new Region(africa, "East Africa");
-		Region congo = new Region(africa, "Congo");
-		Region southAfrica = new Region(africa, "S. Africa");
-		Region madagascar = new Region(africa, "Madagascar");
+		Region northAfrica = new Region(africa, "N. Africa", 318, 330, 328, 290);
+		Region egypt = new Region(africa, "Egypt", 385, 282, 395, 285);
+		Region eastAfrica = new Region(africa, "E. Africa", 410, 320, 420, 325);
+		Region congo = new Region(africa, "Congo", 375, 377, 405, 357);
+		Region southAfrica = new Region(africa, "S. Africa", 390, 452, 395, 412);
+		Region madagascar = new Region(africa, "Madagascar", 452, 447, 468, 417);
 		
 		// Africa Europe Connections
 		northAfrica.addBiConnection(westEurope);
@@ -134,18 +136,18 @@ public class MapGenerator {
 		// Asia
 		Continent asia = continents.get(4);
 		
-		Region middleEast = new Region(asia, "Middle East");
-		Region india = new Region(asia, "India");
-		Region siam = new Region(asia, "Siam");
-		Region china = new Region(asia, "China");
-		Region afghanistan = new Region(asia, "Afghanistan");
-		Region ural = new Region(asia, "Ural");
-		Region siberia = new Region(asia, "Siberia");
-		Region mongolia = new Region(asia, "Mongolia");
-		Region japan = new Region(asia, "Japan");
-		Region irkutsk = new Region(asia, "Irkutsk");
-		Region yakutsk = new Region(asia, "Yakutsk");
-		Region kamchatka = new Region(asia, "Kamchatka");
+		Region middleEast = new Region(asia, "Middle East", 420, 240, 445, 250);
+		Region india = new Region(asia, "India", 506, 242, 536, 256);
+		Region siam = new Region(asia, "Siam", 580, 275, 600, 280);
+		Region china = new Region(asia, "China", 554, 235, 570, 205);
+		Region afghanistan = new Region(asia, "Afghanistan", 469, 175, 490, 185);
+		Region ural = new Region(asia, "Ural", 495, 100, 505, 120);
+		Region siberia = new Region(asia, "Siberia", 530, 60, 540, 80);
+		Region mongolia = new Region(asia, "Mongolia", 575, 168, 595, 175);
+		Region japan = new Region(asia, "Japan", 673, 213, 670, 175);
+		Region irkutsk = new Region(asia, "Irkutsk", 567, 150, 590, 120);
+		Region yakutsk = new Region(asia, "Yakutsk", 595, 60, 595, 65);
+		Region kamchatka = new Region(asia, "Kamchatka", 645, 65, 645, 69);
 		
 		// Asia Europe connections
 		southEurope.addBiConnection(middleEast);
@@ -187,10 +189,10 @@ public class MapGenerator {
 		// Oceania
 		Continent oceania = continents.get(5);
 
-		Region indonesia = new Region(oceania, "Indonesia");
-		Region newGuinea = new Region(oceania, "New Guinea");
-		Region westAustralia = new Region(oceania, "W. Australia");
-		Region eastAustralia = new Region(oceania, "E. Australia");
+		Region indonesia = new Region(oceania, "Indonesia", 573, 341, 605, 350);
+		Region newGuinea = new Region(oceania, "New Guinea", 653, 319, 670, 335);
+		Region westAustralia = new Region(oceania, "W. Australia", 665, 425, 670, 395);
+		Region eastAustralia = new Region(oceania, "E. Australia", 625, 450, 635, 420);
 		
 		// Asian Oceania Connections
 		indonesia.addBiConnection(siam);
@@ -205,11 +207,16 @@ public class MapGenerator {
 
 	private void createContinents() {
 		this.continents = new ArrayList<Continent>();
-		continents.add(new Continent("Europe", 5));
-		continents.add(new Continent("N. America", 5));
-		continents.add(new Continent("S. America", 2));
-		continents.add(new Continent("Africa", 3));
-		continents.add(new Continent("Asia", 7));
-		continents.add(new Continent("Oceania", 2));
+		continents.add(new Continent("Europe", 0, 0, 5));
+		continents.add(new Continent("N. America", 0, 0, 5));
+		continents.add(new Continent("S. America", 0, 0, 2));
+		continents.add(new Continent("Africa", 0, 0, 3));
+		continents.add(new Continent("Asia", 0, 0, 7));
+		continents.add(new Continent("Oceania", 0, 0, 2));
+	}
+
+	public void scrumbleRegions() {
+		long seed = System.nanoTime();
+		Collections.shuffle(regions, new Random(seed));
 	}
 }

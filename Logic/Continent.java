@@ -1,22 +1,15 @@
 package Logic;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Continent implements Serializable {
-	private static final long serialVersionUID = 1L;
-	public String name;
+public class Continent extends Drawable {
 	private int reinforceValue;
 	private ArrayList<Region> regions;
 	
-	public Continent(String name, int reinforceValue) {
-		this.name = name;
+	public Continent(String name, int x, int y, int reinforceValue) {
+		super(name, x, y);
 		this.reinforceValue = reinforceValue;
 		regions = new ArrayList<Region>();
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public int getReinforceValue() {
