@@ -14,7 +14,7 @@ public class Logic {
 	{
 		//loadContinents();
 		//loadRegions();
-		new Init();
+		new MapGenerator();
 	}
 	
 	private static void loadRegions() {

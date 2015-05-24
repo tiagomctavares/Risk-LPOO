@@ -2,19 +2,33 @@ package Logic;
 
 import java.util.ArrayList;
 
-public class Init {
-	public Init() {
+public class MapGenerator {
+	private ArrayList<Continent> continents;
+	private ArrayList<Region> regions;
+	
+	public MapGenerator() {
+		createContinents();		
+		createRegions();
+		
+		// Combine all regions into arrayList
+		populateRegions();
+	}
+	
+	public ArrayList<Region> getRegions() {
+		return regions;
+	}
+	
+	public ArrayList<Continent> getContinents() {
+		return continents;
+	}
 
-		ArrayList<Continent> continents = new ArrayList<Continent>();
-		continents.add(new Continent("Europe", 5));
-		continents.add(new Continent("N. America", 5));
-		continents.add(new Continent("S. America", 2));
-		continents.add(new Continent("Africa", 3));
-		continents.add(new Continent("Asia", 7));
-		continents.add(new Continent("Oceania", 2));
-		
-		System.out.println("Continents Created...");
-		
+	private void populateRegions() {
+		regions = new ArrayList<Region>();
+		for(int i=0; i<continents.size(); i++)
+			regions.addAll(continents.get(i).getRegions());
+	}
+
+	private void createRegions() {
 		// Europe Regions
 		Continent europe = continents.get(0);
 
@@ -72,7 +86,6 @@ public class Init {
 		easternUS.addBiConnection(centralAmerica);
 		westernUS.addBiConnection(centralAmerica);
 		
-
 		// North America
 		Continent southAmerica = continents.get(2);
 		Region venezuela = new Region(northAmerica, "Venezuela");
@@ -188,16 +201,15 @@ public class Init {
 		newGuinea.addBiConnection(eastAustralia);
 		westAustralia.addBiConnection(eastAustralia);
 		
-		int c = 0;
-		int r = 1;
-		int connection = 0;
-		// Continent
-		System.out.println(continents.get(c).getName());
-		
-		// Region
-		System.out.println(continents.get(c).getRegions().get(r).getName());
-		
-		// Connection
-		System.out.println(continents.get(c).getRegions().get(r).getConnections().get(connection).getName());
+	}
+
+	private void createContinents() {
+		this.continents = new ArrayList<Continent>();
+		continents.add(new Continent("Europe", 5));
+		continents.add(new Continent("N. America", 5));
+		continents.add(new Continent("S. America", 2));
+		continents.add(new Continent("Africa", 3));
+		continents.add(new Continent("Asia", 7));
+		continents.add(new Continent("Oceania", 2));
 	}
 }
