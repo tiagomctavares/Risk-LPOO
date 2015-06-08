@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import Logic.Player;
 
-public class Listener {
+
+public class ServerPlayers {
 	ArrayList<Player> players;
 	
-	public Listener() {
+	public ServerPlayers() {
 		players = new ArrayList<Player>();
 		players.add(new Player(1, "Tiago", Color.BLUE));
 		players.add(new Player(2, "Botas", Color.RED));

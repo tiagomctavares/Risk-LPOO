@@ -1,6 +1,6 @@
 package Logic;
 
-public class Drawable {
+abstract public class Drawable {
 	private int x;
 	private int y;
 	private String name;

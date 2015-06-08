@@ -17,16 +17,12 @@ public class BoardPanel extends JPanel {
 	private BoardImages images;
 	private Game game;
 	
-	public BoardPanel() {
-		newGame();
+	public BoardPanel(Game game) {
+		this.game = game;
+		repaint();
 		images = new BoardImages();
 		this.setPreferredSize(new Dimension(750,520));
     }
-	
-	public void newGame() {
-		game = new Game();
-		repaint();
-	}
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

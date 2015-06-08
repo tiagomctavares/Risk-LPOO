@@ -10,6 +10,7 @@ public class Region extends Drawable {
 	private ArrayList<Region> connections;
 	int troopX;
 	int troopY;
+	
 	public Region(Continent continent, String name, int x, int y) {
 		super(name, x, y);
 		this.continent = continent;
@@ -34,6 +35,11 @@ public class Region extends Drawable {
 		continent.addRegion(this);
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	public int getTroopX() {
 		return troopX;
 	}
@@ -81,5 +87,103 @@ public class Region extends Drawable {
 
 	public void setConnections(ArrayList<Region> connections) {
 		this.connections = connections;
+	}
+
+	public boolean lostTroop(Region regionFrom) {
+		this.troops--;
+		
+		if(this.troops == 0) {
+			this.owner = regionFrom.owner;
+			this.troops++;
+			regionFrom.troops--;
+			if(regionFrom.getTroops() > 1)
+				return true;
+		}
+		
+		return false;
+	}
+
+	public int getNumberAttackers() {
+		if(this.troops > 3)
+			return 3;
+		else 
+			return this.troops-1;
+	}
+	
+	public int getNumberDefenders() {
+		if(this.troops >= 2)
+			return 2;
+		else 
+			return 1;
+	}
+
+	public boolean canAttack(Player player) {
+		
+		if(this.owner == player && this.troops > 1) {
+			for(Region neighbour: this.connections)
+				if(neighbour.getOwner() != player)
+					return true;
+		}
+		return false;
+	}
+
+	public int getMaxReinforcements() {
+		return this.troops-1;
+	}
+
+	public void transferTroops(Region regionTo, int number) {
+		this.troops-=number;
+		regionTo.troops+=number;		
+	}
+
+	public boolean canReinforce(Player player) {		
+		if(this.owner == player && this.troops > 1) {
+			for(Region neighbour: this.connections)
+				if(neighbour.getOwner() == player)
+					return true;
+		}
+		return false;
+	}
+
+	public boolean canBeReinforce(Player player, Region reinforceFrom) {
+		ArrayList<Region> tree = getConnectionsTree(reinforceFrom);
+		
+		if(tree.contains(this))
+			return true;
+		
+		return false;
+	}
+
+	private ArrayList<Region> getConnectionsTree(Region reinforceFrom) {
+		ArrayList<Region> regions = new ArrayList<Region>();
+		regions.add(reinforceFrom);
+		
+		getConnectionsTree2(regions, reinforceFrom);
+		
+		regions.remove(0);
+		
+		return regions;
+	}
+	
+	private ArrayList<Region> getConnectionsTree2(ArrayList<Region> alreadyConnected, Region actualRegion) {
+		
+		for(Region region : actualRegion.getConnections()) {
+			if(region.getOwner() == actualRegion.getOwner() && !alreadyConnected.contains(region)) {
+				alreadyConnected.add(region);
+				alreadyConnected = getConnectionsTree2(alreadyConnected, region);
+			}
+		}
+		
+		return alreadyConnected;
+	}
+
+	public boolean canDeployRegion(Player player) {
+		if(this.getOwner() == player)
+			return true;
+		return false;
+	}
+
+	public void deployTroops(int deployNumber) {
+		this.troops+=deployNumber;
 	}
 }

@@ -6,6 +6,7 @@ public class Player {
 	private int id;
 	private String name;
 	private Color color;
+	private int deployNumberRemaining;
 	
 	public Player(int id, String name, Color color) {
 		this.id = id;
@@ -24,5 +25,19 @@ public class Player {
 	@Override
 	public String toString() {
 		return name;
+	}
+	
+	public int getDeployNumberRemaining() {
+		return this.deployNumberRemaining;
+	}
+	
+	public void setDeployNumberRemaining(int reinforcement) {
+		this.deployNumberRemaining = reinforcement;
+		
+	}
+
+	public void deployedTroops(int deployNumber) {
+		this.deployNumberRemaining-=deployNumber;
+		
 	}
 }

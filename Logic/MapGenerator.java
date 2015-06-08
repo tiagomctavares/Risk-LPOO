@@ -48,6 +48,7 @@ public class MapGenerator {
 		ukraine.addBiConnection(southEurope);
 		scandinavia.addBiConnection(iceland);
 		scandinavia.addBiConnection(northEurope);
+		scandinavia.addBiConnection(greatBritain);
 		northEurope.addBiConnection(southEurope);
 		northEurope.addBiConnection(greatBritain);
 		northEurope.addBiConnection(westEurope);
@@ -200,7 +201,8 @@ public class MapGenerator {
 		// Oceania Connections
 		indonesia.addBiConnection(newGuinea);
 		indonesia.addBiConnection(westAustralia);
-		newGuinea.addBiConnection(eastAustralia);
+		indonesia.addBiConnection(eastAustralia);
+		newGuinea.addBiConnection(westAustralia);
 		westAustralia.addBiConnection(eastAustralia);
 		
 	}
@@ -218,5 +220,18 @@ public class MapGenerator {
 	public void scrumbleRegions() {
 		long seed = System.nanoTime();
 		Collections.shuffle(regions, new Random(seed));
+	}
+
+	public void orderAlphabetic() {
+		// Create comparator
+		// Collections.sort(list, c);(regions, new Random(seed));
+	}
+
+	public Region getRegionByName(String regionName) {
+		for(Region region : regions)
+			if(region.getName() == regionName)
+				return region;
+		
+		return null;
 	}
 }
