@@ -1,9 +1,14 @@
-package Logic;
+package logic;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
-
+/**
+ * Represents a Dice
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 public class Dice {
 	
 	static int MAX = 6;

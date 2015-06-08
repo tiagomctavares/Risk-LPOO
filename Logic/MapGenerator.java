@@ -1,9 +1,14 @@
-package Logic;
+package logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-
+/**
+ * This class generates the map, its regions and continents
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 public class MapGenerator {
 	private ArrayList<Continent> continents;
 	private ArrayList<Region> regions;

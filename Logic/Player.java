@@ -1,15 +1,18 @@
-package Logic;
+package logic;
 
 import java.awt.Color;
-
+/**
+ * Represents a Player
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 public class Player {
-	private int id;
 	private String name;
 	private Color color;
 	private int deployNumberRemaining;
 	
-	public Player(int id, String name, Color color) {
-		this.id = id;
+	public Player(String name, Color color) {
 		this.name = name;
 		this.color = color;
 	}

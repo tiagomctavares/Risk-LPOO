@@ -1,5 +1,11 @@
-package Logic;
+package logic;
 
+/**
+ * Abstract method for regions that has a position to be drawn on the map
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 abstract public class Drawable {
 	private int x;
 	private int y;

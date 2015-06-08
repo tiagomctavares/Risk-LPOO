@@ -1,24 +1,31 @@
-package Logic;
+package logic;
 
-import java.awt.Component;
 import java.util.ArrayList;
 
-import Server.ServerPlayers;
 
-
+/**
+ * Represents a Game Logic.
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 public class Game {
 	private MapGenerator map;
-	private ServerPlayers server;
+	private PlayerInit server;
 	private ArrayList<Player> players;
 	private int currentPlayer;
-	
+
+	/**
+	 * Constructs and initializes Game for default board
+	 * 
+	 */	
 	public Game() {
 		players = new ArrayList<Player>();
-		server = new ServerPlayers();
+		server = new PlayerInit();
 		initGame();
 	}
 	
-	public void initGame() {
+	private void initGame() {
 		this.map = new MapGenerator();
 		players = server.getPlayers();
 		currentPlayer = 0;
@@ -41,10 +48,20 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Returns the board represented by an array of continents
+	 * 
+	 * @return <code>ArrayList<Continent></code> representation of the Continents
+	 */
 	public ArrayList<Continent> getBoard() {
 		return map.getContinents();
 	}
-	
+
+	/**
+	 * Returns the an Array list of players
+	 * 
+	 * @return <code>ArrayList<Player></code> representation of the players
+	 */
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -59,7 +76,12 @@ public class Game {
 		
 		return regions;
 	}
-	
+
+	/**
+	 * Returns the an Array of Strings of playable regions for the current Player
+	 * 
+	 * @return <code>String[]</code> representation of the regions that can play
+	 */
 	public String[] getPlayableRegionsList() {
 		return arrayListToArray(getPlayableRegions());
 	}
@@ -79,7 +101,14 @@ public class Game {
 		
 		return regions;
 	}
-	
+
+	/**
+	 * Returns the an Array of Strings of the regions that can be attacked from the region
+	 * 
+	 * @param regionName
+	 * 			The region Name that is attacking
+	 * @return <code>String[]</code> representation of the regions that can play
+	 */
 	public String[] getAttackableRegionsList(String regionName) {
 		return arrayListToArray(getAttackableRegions(regionName));
 	}
@@ -94,6 +123,15 @@ public class Game {
 		return objectList;
 	}
 
+	/**
+	 * Returns the if the region has been conquered or not
+	 * 
+	 * @param regionNameFrom
+	 * 			The region Name that is attacking
+	 * @param regionNameTo
+	 * 			The region Name that is being attacked
+	 * @return <code>True</code> if region has been conquered
+	 */
 	public boolean performAttack(String regionNameFrom, String regionNameTo) {
 		Region regionFrom = map.getRegionByName(regionNameFrom);
 		Region regionTo = map.getRegionByName(regionNameTo);
@@ -119,10 +157,28 @@ public class Game {
 			return false;
 	}
 
+	/**
+	 * Returns the max number of reinforcements you can move from a Region 
+	 * 
+	 * @param regionNameFrom
+	 * 			The region Name that moving troops
+	 * @return <code>Int</code> the max number of the troops that can transfer
+	 */
 	public int getReinforcements(String regionNameFrom) {
 		return map.getRegionByName(regionNameFrom).getMaxReinforcements();
 	}
 
+	/**
+	 * Moves Troops from one Region to another
+	 * 
+	 * @param conquerRegionFrom
+	 * 			The region Name that moving troops
+	 * @param conquerRegionFrom
+	 * 			The region Name that receiving troops
+	 * @param number
+	 * 			The number of troops to transfer
+	 * @return <code>Int</code> the max number of the troops that can transfer
+	 */
 	public void moveTroops(String conquerRegionFrom, String conquerRegionTo, int number) {
 		Region regionFrom = map.getRegionByName(conquerRegionFrom);
 		Region regionTo = map.getRegionByName(conquerRegionTo);
@@ -141,6 +197,11 @@ public class Game {
 		return regions;
 	}
 
+	/**
+	 * Returns the an Array of Strings of the regions that can reinforce others from the current Player
+	 * 
+	 * @return <code>String[]</code> representation of the regions that can reinforce others
+	 */
 	public String[] getReinforceRegionsList() {
 		return arrayListToArray(getReinforceRegions());
 	}
@@ -156,10 +217,22 @@ public class Game {
 		return regions;
 	}
 
-	public String[] getReinforceDestinationRegionsList(String string) {
-		return arrayListToArray(getReinforceDestinationRegions(map.getRegionByName(string)));
+	/**
+	 * Returns the an Array of Strings of the Regions that can be reinforced
+	 * 
+	 * @param regionName
+	 * 			The region name that will be reinforcing
+	 * 
+	 * @return <code>String[]</code> representation of the regions that can reinforce others
+	 */
+	public String[] getReinforceDestinationRegionsList(String regionName) {
+		return arrayListToArray(getReinforceDestinationRegions(map.getRegionByName(regionName)));
 	}
 
+	/**
+	 * Ends the turn of the current Player and stats a new turn for next player
+	 * 
+	 */
 	public void playerEndTurn() {
 		currentPlayer++;
 		if(players.size() == currentPlayer)
@@ -202,6 +275,11 @@ public class Game {
 		return total;
 	}
 
+	/**
+	 * Returns for current Player
+	 * 
+	 * @return <code>Player</code> Returns the current Player
+	 */
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
@@ -211,23 +289,55 @@ public class Game {
 		Player player = players.get(currentPlayer);
 		
 		for(Region region : map.getRegions())
-			if(region.canDeployRegion(players.get(currentPlayer)))
+			if(region.canDeployRegion(player))
 				regions.add(region);
 		
 		return regions;
 	}
-	
+
+	/**
+	 * Returns the an Array of Strings of the Regions that the player can Deploy Troops
+	 * 
+	 * @return <code>String[]</code> representation of the regions that the player can deploy troops
+	 */
 	public String[] getDeployRegionsList() {
 		return arrayListToArray(getDeployRegions());
 	}
 
+	/**
+	 * Returns the number of the troops the player can still deploy
+	 * 
+	 * @return <code>int</code> the number of the troops the player can still deploy
+	 */
 	public int getDeployNumberForPlayer() {
 		return players.get(currentPlayer).getDeployNumberRemaining();
 	}
 
+	/**
+	 * Deploys Troops on Region
+	 * 
+	 * @param regionDeploy
+	 * 			Region name to deploy troops
+	 * @param deployNumber
+	 * 			Number of troops to deploy on that region
+	 * 
+	 */
 	public void deployTroops(String regionDeploy, int deployNumber) {
 		Region region = map.getRegionByName(regionDeploy);
 		region.deployTroops(deployNumber);
 		players.get(currentPlayer).deployedTroops(deployNumber);
+	}
+
+	/**
+	 * Returns the Region by its name
+	 * 
+	 * @param name
+	 * 			Region name
+	 * @return Region
+	 * 			The Region
+	 * 
+	 */
+	public Region getRegionByName(String name) {
+		return map.getRegionByName(name);
 	}
 }

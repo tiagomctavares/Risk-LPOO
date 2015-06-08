@@ -1,7 +1,14 @@
-package Logic;
+package logic;
 
 import java.util.ArrayList;
 
+
+/**
+ * Represents a Continent
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 public class Continent extends Drawable {
 	private int reinforceValue;
 	private ArrayList<Region> regions;

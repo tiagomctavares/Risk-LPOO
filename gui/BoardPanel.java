@@ -7,10 +7,10 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import Logic.Continent;
-import Logic.Game;
-import Logic.Player;
-import Logic.Region;
+import logic.Continent;
+import logic.Game;
+import logic.Player;
+import logic.Region;
 
 public class BoardPanel extends JPanel {
 	private static final long serialVersionUID = -8592548139766967002L;

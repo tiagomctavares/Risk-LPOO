@@ -1,7 +1,12 @@
-package Logic;
+package logic;
 
 import java.util.ArrayList;
-
+/**
+ * Represents a Region
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 public class Region extends Drawable {
 	private Continent continent;
 	private String name;
