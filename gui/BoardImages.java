@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Loads the Images to be displayed in board
+ * 
+ * @author Tiago Tavares
+ * 
+ */
 public class BoardImages {
 	private ArrayList<BufferedImage> images;
 	private static String resourcesFolder = System.getProperty("user.dir")+"\\resources\\";
