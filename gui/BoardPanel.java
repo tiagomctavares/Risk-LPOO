@@ -16,48 +16,70 @@ public class BoardPanel extends JPanel {
 	private static final long serialVersionUID = -8592548139766967002L;
 	private BoardImages images;
 	private Game game;
-	
+
+	private String selectedRegion = new String();
+
 	public BoardPanel(Game game) {
 		this.game = game;
 		repaint();
 		images = new BoardImages();
-		this.setPreferredSize(new Dimension(750,520));
-    }
+		this.setPreferredSize(new Dimension(750, 520));
+	}
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        drawBoard(g);
-    }
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		drawBoard(g);
+	}
 
 	private void drawBoard(Graphics g) {
 		g.drawImage(images.getBoard(), 0, 0, null);
+		displaySelectedRegion(g);
 		displayRegions(g);
 		displayPlayers(g);
 	}
 
 	private void displayRegions(Graphics g) {
-		g.setFont(new Font("Arial", Font.BOLD, 9)); 
+		g.setFont(new Font("Arial", Font.BOLD, 9));
 		for (Continent continent : game.getBoard()) {
-			for(Region region : continent.getRegions()) {
+			for (Region region : continent.getRegions()) {
 				g.setColor(Color.BLACK);
 				g.drawString(region.getName(), region.getX(), region.getY());
-				
+
 				g.setColor(region.getOwner().getColor());
 				g.fillOval(region.getTroopX(), region.getTroopY(), 20, 20);
-				
+
 				g.setColor(Color.WHITE);
-				g.drawString(region.getTroops().toString(), region.getTroopX()+5, region.getTroopY()+13);
+				g.drawString(region.getTroops().toString(),
+						region.getTroopX() + 5, region.getTroopY() + 13);
 			}
-		}		
+		}
 	}
 
 	private void displayPlayers(Graphics g) {
-		g.setFont(new Font("Arial", Font.BOLD, 9)); 
+		g.setFont(new Font("Arial", Font.BOLD, 9));
 		int i = 0;
-		for( Player p1 : game.getPlayers()) {
+		for (Player p1 : game.getPlayers()) {
 			g.setColor(p1.getColor());
-			g.drawString(p1.getName(), 10, 250+(i*10));
+			g.drawString(p1.getName(), 10, 250 + (i * 10));
 			i++;
 		}
+	}
+
+	private void displaySelectedRegion(Graphics g) {
+		Region currentRegion = game.getRegionByName(selectedRegion);
+
+		g.setColor(Color.DARK_GRAY);
+		g.fillOval(currentRegion.getTroopX() - 10,
+				currentRegion.getTroopY() - 10, 40, 40);
+
+		repaint();
+	}
+
+	public void setSelectedRegion(String newRegion) {
+		this.selectedRegion = newRegion;
+	}
+
+	public String getSelectedRegion() {
+		return this.selectedRegion;
 	}
 }
